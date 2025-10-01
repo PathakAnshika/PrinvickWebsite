@@ -1,0 +1,77 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  @keyframes loaderLine {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-loader-line {
+    width: 50%;
+    animation: loaderLine 2s ease-in-out infinite;
+  }
+}
+
+@keyframes rocking {
+  0% { transform: rotate(-1deg) scale(1); }
+  50% { transform: rotate(1deg) scale(1.05); }
+  100% { transform: rotate(-1deg) scale(1); }
+}
+
+.animate-rocking {
+  animation: rocking 6s ease-in-out infinite;
+}
+
+.loader-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #ffffff; /* white background */
+}
+
+.loader-image {
+  width: 150px;
+  height: auto;
+  border: none; /* border हटा दिया */
+  box-shadow: none; /* कोई shadow नहीं */
+  margin-bottom: 20px;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 6px;
+  background: #e0e0e0;
+}
+
