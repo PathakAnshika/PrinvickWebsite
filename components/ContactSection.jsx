@@ -1,149 +1,85 @@
 "use client";
-
 import React, { useState } from "react";
-import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { Dancing_Script } from "next/font/google";
 
-const cursiveFont = Dancing_Script({ subsets: ["latin"], weight: ["400", "700"] });
+const cursiveFont = Dancing_Script({ subsets: ["latin"], weight: ["700"] });
 
 export function ContactSection() {
-  const phoneNumber = "+9113789574";
-  const emailAddress = "prinvick911@gmail.com";
-  const whatsappNumber = "+9113789574";
-
-  // Form state
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState("");
+  const [feedback, setFeedback] = useState("");
 
-  // Handle input change
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setStatus("");
+    setFeedback("");
 
+    if (!name || !email || !message) {
+      setFeedback("All fields are required!");
+      return;
+    }
+
+    setLoading(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ name, email, message }),
       });
 
+      const data = await res.json();
       if (res.ok) {
-        setStatus("✅ Message sent successfully!");
-        setForm({ name: "", email: "", message: "" });
+        setFeedback(data.message);
+        setName("");
+        setEmail("");
+        setMessage("");
       } else {
-        setStatus("❌ Failed to send message. Try again.");
+        setFeedback(data.error || "Something went wrong!");
       }
-    } catch (error) {
-      setStatus("⚠️ Something went wrong.");
+    } catch (err) {
+      setFeedback("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50 py-16 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-        {/* Left: Company Info */}
-        <div className="space-y-6">
-          <h2
-            className={`${cursiveFont.className} text-4xl md:text-5xl font-bold text-gray-800`}
+    <section className="relative flex flex-col md:flex-row items-center justify-center py-12 px-4 md:px-12 overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, #a8e6cf, #20c997, #ffd8b1)",
+        clipPath: "polygon(0 0, 100% 0%, 100% 95%, 0% 100%)",
+      }}
+    >
+      <div className="w-full md:w-1/2 md:mr-8 bg-white bg-opacity-80 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-lg z-10">
+        <h2 className={`${cursiveFont.className} text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center`}>
+          Let’s Connect & Create Together
+        </h2>
+        <p className="text-gray-700 mb-4 text-center text-sm md:text-base">
+          Send us your queries or ideas and we’ll get back to you!
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <input type="text" placeholder="Your Name" value={name} onChange={(e)=>setName(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm" required />
+          <input type="email" placeholder="Your Email" value={email} onChange={(e)=>setEmail(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm" required />
+          <textarea placeholder="Your Message" value={message} onChange={(e)=>setMessage(e.target.value)}
+            className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm resize-none" required></textarea>
+          <button type="submit"
+            className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold px-4 py-2 rounded-lg shadow-md transition transform hover:scale-105 text-sm"
+            disabled={loading}
           >
-            Contact Us
-          </h2>
-          <p className="text-gray-700 text-lg">
-            Have questions or want to customize your T-shirt? Reach out to us
-            through any of the options below.
-          </p>
+            {loading ? "Sending..." : "Send Message"}
+          </button>
+        </form>
 
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 text-gray-800">
-              <MapPin size={24} />
-              <span>123, Fashion Street, City, Country</span>
-            </div>
+        {feedback && <p className="text-xs text-gray-700 mt-2 text-center">{feedback}</p>}
+      </div>
 
-            <div className="flex items-center gap-3 text-gray-800 cursor-pointer hover:text-sky-500 transition">
-              <Mail size={24} />
-              <a href={`mailto:${emailAddress}`} className="hover:underline">
-                {emailAddress}
-              </a>
-            </div>
-
-            <div className="flex items-center gap-3 text-gray-800 cursor-pointer hover:text-sky-500 transition">
-              <Phone size={24} />
-              <a href={`tel:${phoneNumber}`} className="hover:underline">
-                {phoneNumber}
-              </a>
-            </div>
-
-            <div className="flex items-center gap-3 text-gray-800 cursor-pointer hover:text-sky-500 transition">
-              <MessageCircle size={24} />
-              <a
-                href={`https://wa.me/${whatsappNumber.replace(/\D/g, "")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                WhatsApp: {whatsappNumber}
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Right: Message Box */}
-        <div>
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-6"
-          >
-            <h3
-              className={`${cursiveFont.className} text-2xl font-bold text-gray-800`}
-            >
-              Send a Message
-            </h3>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              required
-              className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-sky-400"
-            />
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Your Email"
-              required
-              className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-sky-400"
-            />
-            <textarea
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="Your Message"
-              rows={5}
-              required
-              className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-sky-400"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-sky-400 text-white font-semibold px-6 py-3 rounded-lg hover:bg-sky-500 transition disabled:opacity-50"
-            >
-              {loading ? "Sending..." : "Send Message"}
-            </button>
-            {status && <p className="text-sm text-gray-700">{status}</p>}
-          </form>
-        </div>
+      <div className="w-full md:w-1/2 h-48 md:h-[300px] mt-6 md:mt-0 relative rounded-xl overflow-hidden shadow-lg">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.902773466537!2d84.06479617529956!3d25.555462083820498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398d2c92658f7f3b%3A0x53c6f4b826fba1ff!2sBypass%20Rd%2C%20Hanuman%20Nagar%2C%20Buxar%2C%20Bihar-802101!5e0!3m2!1sen!2sin!4v1697029567890!5m2!1sen!2sin"
+          width="100%" height="100%" allowFullScreen="" loading="lazy" className="border-0"></iframe>
       </div>
     </section>
   );

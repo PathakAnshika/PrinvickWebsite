@@ -5,18 +5,23 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "export": "next export"
   },
   "dependencies": {
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "formidable": "^3.5.4",
     "framer-motion": "^12.23.16",
+    "gsap": "^3.13.0",
     "lucide-react": "^0.544.0",
     "next": "15.5.3",
     "nodemailer": "^7.0.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-draggable": "^4.5.0",
+    "react-easy-crop": "^5.5.3",
+    "react-rnd": "^10.5.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
