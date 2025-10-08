@@ -194,154 +194,157 @@ export function AboutSection() {
         </div>
       </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 overflow-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-5xl relative p-6 md:p-8 flex flex-col md:flex-row gap-6">
+     {isModalOpen && (
+  <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-2 sm:p-4 overflow-auto">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-6xl relative p-4 sm:p-6 md:p-8 flex flex-col md:flex-row gap-4 md:gap-6">
 
-            {/* Side toggle */}
-            <div className="flex flex-col gap-4 md:w-28">
-              <button
-                onClick={() => setSide("front")}
-                className={`px-4 py-2 rounded-lg border-2 ${side === "front" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
-              >
-                Front
-              </button>
-              <button
-                onClick={() => setSide("back")}
-                className={`px-4 py-2 rounded-lg border-2 ${side === "back" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
-              >
-                Back
-              </button>
-            </div>
+      {/* Side toggle */}
+      <div className="flex flex-row md:flex-col gap-2 md:gap-4 w-full md:w-28 justify-center md:justify-start">
+        <button
+          onClick={() => setSide("front")}
+          className={`px-3 sm:px-4 py-2 rounded-lg border-2 text-sm sm:text-base ${side === "front" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
+        >
+          Front
+        </button>
+        <button
+          onClick={() => setSide("back")}
+          className={`px-3 sm:px-4 py-2 rounded-lg border-2 text-sm sm:text-base ${side === "back" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
+        >
+          Back
+        </button>
+      </div>
 
-            <button
-              className="absolute top-4 right-4 text-gray-600 dark:text-gray-200 hover:text-red-500 z-50"
-              onClick={handleCloseModal}
-            >
-              ✖
-            </button>
+      {/* Close button */}
+<button
+  className="absolute top-4 right-4 text-gray-600 dark:text-gray-200 hover:text-red-500 z-50"
+  onClick={handleCloseModal}
+>
+  ✖
+</button>
 
-            {/* T-shirt previews */}
-            <div className="flex flex-col md:flex-row gap-4 justify-center items-center flex-wrap w-full">
-              {["white", "black"].map((color) => (
-                <div key={color} className="relative w-48 md:w-64 h-72 md:h-96 rounded-xl shadow-lg border overflow-hidden">
-                  <img
-                    src={`/Tees/${color === "white" ? "White" : "Blck"}${side.charAt(0).toUpperCase() + side.slice(1)}.jpeg`}
-                    alt={`${color} ${side}`}
-                    className="w-full h-full object-contain rounded-xl"
-                  />
-                  {previews[side][color] && (
-                    <Rnd
-                      bounds="parent"
-                      size={rndSizes[side][color]}
-                      position={rndPositions[side][color]}
-                      onDragStop={(e, d) =>
-                        setRndPositions((prev) => ({
-                          ...prev,
-                          [side]: { ...prev[side], [color]: { x: d.x, y: d.y } },
-                        }))
-                      }
-                      onResizeStop={(e, dir, ref, delta, position) => {
-                        setRndSizes((prev) => ({
-                          ...prev,
-                          [side]: { ...prev[side], [color]: { width: ref.offsetWidth, height: ref.offsetHeight } },
-                        }));
-                        setRndPositions((prev) => ({
-                          ...prev,
-                          [side]: { ...prev[side], [color]: { x: position.x, y: position.y } },
-                        }));
-                      }}
-                      minWidth={50}
-                      minHeight={50}
-                      className="z-20"
-                    >
-                      <img src={previews[side][color]} alt="Design" className="w-full h-full pointer-events-none" />
-                    </Rnd>
-                  )}
-                </div>
-              ))}
-            </div>
 
-            {/* Controls */}
-            <div className="flex flex-col items-center md:items-start w-full md:w-auto mt-4 md:mt-0">
-              <button
-                onClick={() => inputRef.current.click()}
-                className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full mb-2"
-              >
-                🎨 Upload Design
-              </button>
-              <input type="file" accept="image/png" onChange={handleUpload} ref={inputRef} className="hidden" />
-
-              {uploadedImage && (
-                <div className="relative w-64 h-64 mt-2 bg-gray-100 rounded-xl overflow-hidden">
-                  <Cropper
-                    image={uploadedImage}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={1}
-                    onCropChange={setCrop}
-                    onZoomChange={setZoom}
-                    onCropComplete={onCropComplete}
-                  />
-                </div>
-              )}
-
-              <label className="mt-2 text-gray-700 font-medium">Zoom:</label>
-              <input
-                type="range"
-                min={1}
-                max={3}
-                step={0.01}
-                value={zoom}
-                onChange={(e) => setZoom(Number(e.target.value))}
-                className="w-64 mt-1"
-              />
-
-              <label className="mt-2 text-gray-700 font-medium">Resize Design:</label>
-              <input
-                type="range"
-                min={0.1}
-                max={2}
-                step={0.01}
-                value={rndSizes[side].white.width / 150}
-                onChange={(e) => {
-                  const newScale = Number(e.target.value);
+      {/* T-shirt previews */}
+      <div className="flex flex-wrap gap-3 justify-center items-center w-full md:w-auto overflow-x-auto">
+        {["white", "black"].map((color) => (
+          <div key={color} className="relative w-36 sm:w-48 md:w-64 h-56 sm:h-72 md:h-96 rounded-xl shadow-lg border overflow-hidden flex-shrink-0">
+            <img
+              src={`/Tees/${color === "white" ? "White" : "Blck"}${side.charAt(0).toUpperCase() + side.slice(1)}.jpeg`}
+              alt={`${color} ${side}`}
+              className="w-full h-full object-contain rounded-xl"
+            />
+            {previews[side][color] && (
+              <Rnd
+                bounds="parent"
+                size={rndSizes[side][color]}
+                position={rndPositions[side][color]}
+                onDragStop={(e, d) =>
+                  setRndPositions((prev) => ({
+                    ...prev,
+                    [side]: { ...prev[side], [color]: { x: d.x, y: d.y } },
+                  }))
+                }
+                onResizeStop={(e, dir, ref, delta, position) => {
                   setRndSizes((prev) => ({
                     ...prev,
-                    [side]: {
-                      white: { width: 150 * newScale, height: 150 * newScale },
-                      black: { width: 150 * newScale, height: 150 * newScale },
-                    },
+                    [side]: { ...prev[side], [color]: { width: ref.offsetWidth, height: ref.offsetHeight } },
+                  }));
+                  setRndPositions((prev) => ({
+                    ...prev,
+                    [side]: { ...prev[side], [color]: { x: position.x, y: position.y } },
                   }));
                 }}
-                className="w-64 mt-1"
-              />
-
-              <button
-                onClick={generatePreview}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg mt-2"
+                minWidth={40}
+                minHeight={40}
+                className="z-20"
               >
-                Set Design
-              </button>
-
-              <div className="flex gap-2 mt-2">
-                <button
-                  onClick={() => handleDownload("white")}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg"
-                >
-                  Download White
-                </button>
-                <button
-                  onClick={() => handleDownload("black")}
-                  className="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg"
-                >
-                  Download Black
-                </button>
-              </div>
-            </div>
+                <img src={previews[side][color]} alt="Design" className="w-full h-full pointer-events-none" />
+              </Rnd>
+            )}
           </div>
+        ))}
+      </div>
+
+      {/* Controls */}
+      <div className="flex flex-col items-center md:items-start w-full md:w-auto mt-2 md:mt-0 gap-2 sm:gap-3">
+        <button
+          onClick={() => inputRef.current.click()}
+          className="px-5 sm:px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full text-sm sm:text-base"
+        >
+          🎨 Upload Design
+        </button>
+        <input type="file" accept="image/png" onChange={handleUpload} ref={inputRef} className="hidden" />
+
+        {uploadedImage && (
+          <div className="relative w-48 sm:w-52 md:w-64 h-48 sm:h-52 md:h-64 mt-2 bg-gray-100 rounded-xl overflow-hidden">
+            <Cropper
+              image={uploadedImage}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={onCropComplete}
+            />
+          </div>
+        )}
+
+        <label className="mt-1 text-gray-700 font-medium text-sm sm:text-base">Zoom:</label>
+        <input
+          type="range"
+          min={1}
+          max={3}
+          step={0.01}
+          value={zoom}
+          onChange={(e) => setZoom(Number(e.target.value))}
+          className="w-48 sm:w-52 md:w-64 mt-1"
+        />
+
+        <label className="mt-1 text-gray-700 font-medium text-sm sm:text-base">Resize Design:</label>
+        <input
+          type="range"
+          min={0.1}
+          max={2}
+          step={0.01}
+          value={rndSizes[side].white.width / 150}
+          onChange={(e) => {
+            const newScale = Number(e.target.value);
+            setRndSizes((prev) => ({
+              ...prev,
+              [side]: {
+                white: { width: 150 * newScale, height: 150 * newScale },
+                black: { width: 150 * newScale, height: 150 * newScale },
+              },
+            }));
+          }}
+          className="w-48 sm:w-52 md:w-64 mt-1"
+        />
+
+        <button
+          onClick={generatePreview}
+          className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg mt-1 sm:mt-2"
+        >
+          Set Design
+        </button>
+
+        <div className="flex flex-wrap gap-2 mt-1 sm:mt-2 justify-center">
+          <button
+            onClick={() => handleDownload("white")}
+            className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm sm:text-base"
+          >
+            Download White
+          </button>
+          <button
+            onClick={() => handleDownload("black")}
+            className="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg text-sm sm:text-base"
+          >
+            Download Black
+          </button>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
+
     </section>
   );
 }

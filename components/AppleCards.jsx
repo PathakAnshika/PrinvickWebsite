@@ -6,21 +6,26 @@ const cursiveFont = Dancing_Script({ subsets: ["latin"], weight: ["400", "700"] 
 
 export function AppleCards() {
   return (
-    <section className="w-full py-20 bg-gray-50 dark:bg-neutral-900">
-     <h2 className={`${cursiveFont.className} text-3xl md:text-5xl font-bold text-center text-gray-800 dark:text-white mb-12`}>
-
+    <section className="w-full py-16 sm:py-20 bg-gray-50 dark:bg-neutral-900">
+      <h2
+        className={`${cursiveFont.className} text-2xl sm:text-3xl md:text-5xl font-bold text-center text-gray-800 dark:text-white mb-12`}
+      >
         Explore Our Tees Collection
       </h2>
 
-      <div className="flex flex-col items-center gap-6">
+      <div className="flex flex-col items-center gap-6 sm:gap-8 md:gap-10">
         {tees.map((tee, index) => (
           <img
             key={index}
             src={tee.src}
             alt={tee.title}
-            className={`w-7/12 md:w-1/2 lg:w-2/5 object-cover rounded-2xl shadow-lg transform transition duration-500 ${
-              index % 2 === 0 ? "rotate-1" : "-rotate-1"
-            } hover:scale-105`}
+            className={`
+              w-10/12 sm:w-8/12 md:w-1/2 lg:w-2/5
+              object-cover rounded-2xl shadow-lg 
+              transform transition duration-500 
+              ${index % 2 === 0 ? "rotate-1 sm:rotate-1" : "-rotate-1 sm:-rotate-1"}
+              hover:scale-105
+            `}
           />
         ))}
       </div>

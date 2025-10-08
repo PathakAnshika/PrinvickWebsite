@@ -25,19 +25,20 @@ export function CarouselDemo() {
   ];
 
   return (
-    <div className="w-full py-10 bg-gray-50 bg-[url('https://www.toptal.com
-bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/diagmonds.png')] bg-repeat">
-  <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 justify-center items-center">
-    <div className="w-full md:w-1/3">
-      <Carousel slides={slideData1} />
+    <div
+      className="w-full py-10 bg-gray-50 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/diagmonds.png')] bg-repeat"
+    >
+      <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 justify-center items-center px-4 sm:px-6 lg:px-12">
+        <div className="w-full sm:w-5/6 md:w-1/3">
+          <Carousel slides={slideData1} />
+        </div>
+        <div className="w-full sm:w-5/6 md:w-1/3">
+          <Carousel slides={slideData2} />
+        </div>
+        <div className="w-full sm:w-5/6 md:w-1/3">
+          <Carousel slides={slideData3} />
+        </div>
+      </div>
     </div>
-    <div className="w-full md:w-1/3">
-      <Carousel slides={slideData2} />
-    </div>
-    <div className="w-full md:w-1/3">
-      <Carousel slides={slideData3} />
-    </div>
-  </div>
-</div>
   );
 }
