@@ -7,15 +7,23 @@ const cursiveFont = Dancing_Script({ subsets: ["latin"], weight: ["700"] });
 export function VideoSection() {
   return (
     <section
-      className="relative w-full flex items-center justify-center overflow-hidden"
+      className="relative w-full flex flex-col items-center justify-start overflow-hidden pt-8 sm:pt-12 md:pt-16"
       style={{
         background: "#fff8f0",
-        clipPath: "polygon(0 0, 100% 5%, 100% 95%, 0% 100%)",
         minHeight: "100vh",
       }}
     >
+      {/* Top Text ABOVE Video */}
+      <div className="w-full flex justify-center mb-6 sm:mb-8 md:mb-10 z-20">
+        <h2
+          className={`${cursiveFont.className} text-[#d4af37] text-3xl sm:text-4xl md:text-5xl font-extrabold drop-shadow-md text-center`}
+        >
+          Custom Prints, Endless Style
+        </h2>
+      </div>
+
       {/* Video Container */}
-      <div className="relative w-[90%] sm:w-[85%] md:w-[75%] max-w-5xl h-[80vh] sm:h-[90vh] md:h-[100vh] overflow-hidden rounded-xl shadow-lg">
+      <div className="relative w-[90%] sm:w-[85%] md:w-[75%] max-w-5xl h-[70vh] sm:h-[80vh] md:h-[90vh] overflow-hidden rounded-xl shadow-lg">
         <video
           src="/Tees/3Section.mp4"
           autoPlay
@@ -23,23 +31,6 @@ export function VideoSection() {
           loop
           className="w-full h-full object-cover rounded-xl"
         />
-      </div>
-
-      {/* Top Text */}
-      <div
-        className="absolute left-1/2 transform -translate-x-1/2 z-20 text-center px-4 py-2 rounded-xl"
-        style={{
-          top: "5%", // Heading thoda upar
-        }}
-      >
-        <h2
-          className={`${cursiveFont.className} text-gray-800 text-xl sm:text-2xl md:text-3xl font-extrabold drop-shadow-md`}
-          style={{
-            whiteSpace: "nowrap", // Single line
-          }}
-        >
-          Custom Prints, Endless Style
-        </h2>
       </div>
     </section>
   );
