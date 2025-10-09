@@ -11,7 +11,7 @@ export function ContactSection() {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => { // <-- type removed
     e.preventDefault();
     setFeedback("");
 
@@ -48,12 +48,12 @@ export function ContactSection() {
     <section
       className="relative flex flex-col md:flex-row items-start md:items-center justify-center py-12 px-4 md:px-12 gap-8 md:gap-16 overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #a8e6cf, #20c997, #ffd8b1)",
+        background: "linear-gradient(135deg, #f0f0f0, #20c997, #ffd8b1)",
         clipPath: "polygon(0 0, 100% 0%, 100% 95%, 0% 100%)",
       }}
     >
       {/* Form */}
-      <div className="w-full md:w-1/2 bg-white bg-opacity-80 backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-lg z-10 flex flex-col gap-4">
+      <div className="w-full md:w-1/2 bg-[#f8f8f8] backdrop-blur-md p-6 md:p-8 rounded-2xl shadow-lg z-10 flex flex-col gap-4">
         <h2
           className={`${cursiveFont.className} text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center md:text-left`}
         >
@@ -69,7 +69,7 @@ export function ContactSection() {
             placeholder="Your Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm md:text-base"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm md:text-base placeholder-gray-500"
             required
           />
           <input
@@ -77,14 +77,14 @@ export function ContactSection() {
             placeholder="Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm md:text-base"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm md:text-base placeholder-gray-500"
             required
           />
           <textarea
             placeholder="Your Message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full h-28 md:h-36 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm md:text-base resize-none"
+            className="w-full h-28 md:h-36 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm md:text-base placeholder-gray-500 resize-none"
             required
           ></textarea>
           <button
@@ -96,7 +96,9 @@ export function ContactSection() {
           </button>
         </form>
 
-        {feedback && <p className="text-xs md:text-sm text-gray-700 mt-2">{feedback}</p>}
+        {feedback && (
+          <p className="text-xs md:text-sm text-gray-700 mt-2">{feedback}</p>
+        )}
       </div>
 
       {/* Map */}
@@ -105,7 +107,7 @@ export function ContactSection() {
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.902773466537!2d84.06479617529956!3d25.555462083820498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398d2c92658f7f3b%3A0x53c6f4b826fba1ff!2sBypass%20Rd%2C%20Hanuman%20Nagar%2C%20Buxar%2C%20Bihar-802101!5e0!3m2!1sen!2sin!4v1697029567890!5m2!1sen!2sin"
           width="100%"
           height="100%"
-          allowFullScreen=""
+          allowFullScreen
           loading="lazy"
           className="border-0"
         ></iframe>
