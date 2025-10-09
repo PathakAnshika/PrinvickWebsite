@@ -15,17 +15,17 @@ export function VideoSection() {
 
   return (
     <section
-      className="relative w-full h-[100vh] sm:h-[120vh] flex items-center justify-center overflow-hidden"
+      className="relative w-full h-[120vh] sm:h-[140vh] flex items-center justify-center overflow-hidden"
       style={{
-        background: "#fff8f0", // Cream White Background
-        clipPath: "polygon(0 0, 100% 5%, 100% 95%, 0% 100%)", // Slanted section
+        background: "#fff8f0",
+        clipPath: "polygon(0 0, 100% 5%, 100% 95%, 0% 100%)",
       }}
     >
-      {/* Video Container with Parallax */}
+      {/* Video Container */}
       <div
-        className="relative w-[90%] sm:w-[85%] md:w-[75%] max-w-5xl h-[90%] sm:h-[120%] overflow-hidden rounded-xl shadow-lg"
+        className="relative w-[90%] sm:w-[85%] md:w-[75%] max-w-5xl h-[100%] sm:h-[120%] overflow-hidden rounded-xl shadow-lg"
         style={{
-          transform: `translateY(${offsetY * 0.15}px)`, // Parallax scroll effect
+          transform: `translateY(${offsetY * 0.15}px)`,
           transition: "transform 0.1s ease-out",
         }}
       >
@@ -39,20 +39,18 @@ export function VideoSection() {
       </div>
 
       {/* Top Text */}
-      <div className="absolute top-10 sm:top-16 left-1/2 transform -translate-x-1/2 px-4 sm:px-6 py-2 rounded-xl backdrop-blur-sm z-20">
+      <div
+        className="absolute left-1/2 transform -translate-x-1/2 z-20 text-center 
+                   px-4 py-2 rounded-xl backdrop-blur-sm"
+        style={{
+          top: "3%", // heading thodi aur upar
+        }}
+      >
         <h2
-          className={`${cursiveFont.className} text-gray-800 text-xl sm:text-2xl md:text-3xl font-extrabold drop-shadow-md text-center`}
+          className={`${cursiveFont.className} text-gray-800 text-[1.3rem] sm:text-2xl md:text-3xl font-extrabold drop-shadow-md`}
         >
           Custom Prints, Endless Style
         </h2>
-      </div>
-
-      {/* Optional Bottom Text */}
-      <div className="absolute bottom-10 sm:bottom-16 left-1/2 transform -translate-x-1/2 z-20 text-center px-4">
-        {/* Example Bottom Text */}
-        {/* <h2 className={`${cursiveFont.className} text-[#3EB489] text-2xl sm:text-4xl md:text-5xl font-extrabold drop-shadow-lg`}>
-          Wear Your Imagination
-        </h2> */}
       </div>
     </section>
   );
