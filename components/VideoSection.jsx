@@ -2,6 +2,7 @@
 import React from "react";
 import { Dancing_Script } from "next/font/google";
 
+// Import cursive font
 const cursiveFont = Dancing_Script({ subsets: ["latin"], weight: ["700"] });
 
 export function VideoSection() {
@@ -33,7 +34,7 @@ export function VideoSection() {
         }}
       >
         <h2
-          className={`${cursiveFont.className} text-gray-800 text-lg sm:text-2xl md:text-3xl font-extrabold drop-shadow-md`}
+          className={`${cursiveFont.className} text-gray-800 text-xl sm:text-3xl md:text-4xl font-extrabold drop-shadow-md`}
         >
           Custom Prints, Endless Style
         </h2>
