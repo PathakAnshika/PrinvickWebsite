@@ -2,7 +2,6 @@
 import React from "react";
 import { Dancing_Script } from "next/font/google";
 
-// Import cursive font
 const cursiveFont = Dancing_Script({ subsets: ["latin"], weight: ["700"] });
 
 export function VideoSection() {
@@ -28,13 +27,16 @@ export function VideoSection() {
 
       {/* Top Text */}
       <div
-        className="absolute left-1/2 transform -translate-x-1/2 z-20 text-center px-2 py-1 rounded-xl"
+        className="absolute left-1/2 transform -translate-x-1/2 z-20 text-center px-4 py-2 rounded-xl"
         style={{
           top: "5%", // Heading thoda upar
         }}
       >
         <h2
-          className={`${cursiveFont.className} text-gray-800 text-xl sm:text-3xl md:text-4xl font-extrabold drop-shadow-md`}
+          className={`${cursiveFont.className} text-gray-800 text-xl sm:text-2xl md:text-3xl font-extrabold drop-shadow-md`}
+          style={{
+            whiteSpace: "nowrap", // Single line
+          }}
         >
           Custom Prints, Endless Style
         </h2>
