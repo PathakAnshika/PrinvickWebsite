@@ -74,4 +74,58 @@ body {
   height: 6px;
   background: #e0e0e0;
 }
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+/* ----------- Modal Base Styling ----------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 480px;
+  padding: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.4s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🧠 Prevent Zoom/Scroll jump */
+body.modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .modal-container {
+    width: 92%;
+    padding: 1.2rem;
+    border-radius: 0.75rem;
+  }
+}
 
